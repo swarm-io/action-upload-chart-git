@@ -23,13 +23,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Fetch release
-      uses: robinraju/release-downloader@v1.3
-      with:
-        repository: ${{ github.repository }}
-        tag: ${{ inputs.tag }}
-        fileName: ${{ inputs.release-asset-name }}
-        token: ${{ inputs.token }}
     - name: Install Helm
       uses: azure/setup-helm@v1
       with:
@@ -40,10 +33,19 @@ runs:
         token: ${{ inputs.token }}
         repository: ${{ inputs.chart-repository }}
         ref: ${{ inputs.chart-repository-ref }}
+    - name: Fetch release
+      uses: robinraju/release-downloader@v1.3
+      with:
+        repository: ${{ github.repository }}
+        tag: ${{ inputs.tag }}
+        fileName: ${{ inputs.release-asset-name }}
+        token: ${{ inputs.token }}
     - name: Upload chart and reindex
       shell: bash
       run: |
+        ls -lh
         tar -zxvf ${{ inputs.release-asset-name }} && rm ${{ inputs.release-asset-name }}
+        ls -lh
         helm repo index .
     - name: Commit changes
       uses: stefanzweifel/git-auto-commit-action@v4
