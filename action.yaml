@@ -43,9 +43,7 @@ runs:
     - name: Upload chart and reindex
       shell: bash
       run: |
-        ls -lh
         tar -zxvf ${{ inputs.release-asset-name }} && rm ${{ inputs.release-asset-name }}
-        ls -lh
         helm repo index .
     - name: Commit changes
       uses: stefanzweifel/git-auto-commit-action@v4
