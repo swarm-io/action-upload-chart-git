@@ -1,5 +1,5 @@
 name: 'Upload a released helm chart to a git helm charts repository'
-description: 'Extracts a helm chart from a release, adds it to a git helm repository, then reindexes the repository'
+description: 'Extracts a helm chart from a release, adds it to a git helm repository, then reindexes the repository. This action is designed to be run on a release trigger, and to extract a packaged chart in .tgz format from a .tgz file such as chart.tgz.'
 inputs:
   token:
     description: 'Github token to use, must specify a PAT so that the action can clone the charts repo and push changes to it'
